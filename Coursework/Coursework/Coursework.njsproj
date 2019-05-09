@@ -44,18 +44,9 @@
     <Compile Include="routes\users.js" />
     <Content Include="libman.json" />
     <Content Include="package.json" />
-    <Content Include="public\stylesheets\author.css">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="public\stylesheets\authorization.css">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="views\authorization.pug">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="views\basket.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\index.pug" />
@@ -64,7 +55,7 @@
     <Content Include="views\Main.pug">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\registration.pug">
+    <Content Include="views\probes.pug">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>

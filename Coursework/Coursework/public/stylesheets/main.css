@@ -1,4 +1,11 @@
-﻿
+﻿/*body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    color: #414141; /* Dark grey
+    background-color: #EEEEEE; 
+    text-align: center;
+} */
+
 * {
     margin: 0;
     padding: 0;
@@ -15,9 +22,7 @@
     display: flex;
 }
 
-a{
-    text-decoration: none;
-}
+
 
 .menu-container {
     color: #fff;
@@ -25,9 +30,6 @@ a{
     padding: 20px 0;
     display: flex;
     justify-content: center; /* to define the horizontal alignment of its items*/
-}
-.menu-container a {
-    text-decoration: none;
 }
     .date {
     margin-left: 10px;
@@ -143,18 +145,8 @@ a{
     padding-left: 5px;
     flex-direction: column;
 }
-.content-grid-basket {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-}
 
-.content-grid-basket li{
-    display: block;
-    justify-content: center;
-}
-
-.sidebar li {
+    .sidebar li{
     justify-content: center;
     text-decoration: none;
     display: block
