@@ -1,0 +1,70 @@
+﻿doctype html
+html
+	head
+		title=title
+		
+		link(rel='stylesheet', href='/stylesheets/author.css')
+		<meta charset='UTF-8'>
+	
+		block content
+			body
+			div(class='menu-container')
+				div(class='menu ')
+					div(class='date') Aug 14, 2019
+					div(class='links')
+						div(class='login') 
+							a(href='/authorization') LogIn
+			div(class='header-container')
+				div(class='header')
+					div(class='subscribe') Subscribe &#9662;
+					div(class='logo')
+						p Книжный магазин, который удивит
+					div(class='social')
+			form(class='search-form' action='/' method='post')
+				input(id='request' name='request' type='text')
+				button Submit
+			div(class='speaker-form')
+				form(action='/registration' method='post' enctype='multipart/form-data')
+						div(class='form-row')
+							label(for='first-name') First Name
+							input(id='first-name' name='first-name' type='text')
+						div(class='form-row')
+							label(for='last-name') Last Name
+							input(id='last-name' name='last-name' type='text')
+						div(class='form-row')
+							label(for='patronymic') patronymic
+							input(id='patronymic' name='patronymic' type='text')
+						div(class='form-row')
+							label(for='email') Email
+							input(id='email' name='email' type='email'  placeholder='joe@example.com')
+						div(class='form-row')
+							label(for='phone') Phone
+							input(id='phone' name='phone' type='text')
+						div(class='form-row')
+							label(for='type') Type
+							select(id='type' name='type' )
+								option(value='customer' id='customer' onclick) Customer
+								option(value='vendor' id='vendor') Vendor
+								option(value='courier' id='courier') Courier
+						script
+							document.getElementById('customer').onclick = function(){
+								document.getElementById('position').style.display = 'flex';}
+						script
+							document.getElementById('vendor').onclick = function(){
+								document.getElementById('position').style.display = 'none';}
+				
+						script
+							document.getElementById('courier').onclick = function(){
+								document.getElementById('position').style.display = 'none';}
+				
+				
+						div(class='form-row' id='position' display='none')
+							label(for='input-position') Position
+							select(name='form-position')
+								each position in positions
+									option(value=position) #{position.name_of_position}
+						div(class='form-row')
+							button Submit
+
+
+
