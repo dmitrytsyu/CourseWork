@@ -7,6 +7,7 @@ block content
 			div(class='date') 
 				a(href='/') Aug 14, 2019
 			div(class='links')
+				div(class='basket')
 				div(class='signup') 
 					a(href='/registration') SignUp
 				div(class='login') 
@@ -22,14 +23,28 @@ block content
 		input(id='request' name='request' type='text')
 		button Submit
 	div(class='content-grid-container')
+		div(class='content-grid-basket')
+			
 		div(class='sidebar') 
 			each genre in genres
 				li 
 					a(href = '/') #{genre.name} 
-		div(class='content-grid')
-			-for(var x = 0; x < 9; x++)
-				div(class='book-grid')
-					img(src='')
-					a(href='/') Название
-					p Цена
-					a(href='/') Добавить в корзину
+
+
+
+	
+
+	
+			
+
+		
+
+				
+				
+							
+							
+
+
+
+	
+				

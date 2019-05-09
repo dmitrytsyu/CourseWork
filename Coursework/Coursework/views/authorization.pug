@@ -1,5 +1,40 @@
 ﻿doctype html
 html
-  head
-    title
-  body
+	head
+		title=title
+		
+		link(rel='stylesheet', href='/stylesheets/author.css')
+		<meta charset='UTF-8'>
+	body
+		block content
+			body
+			div(class='menu-container')
+				div(class='menu ')
+					div(class='date') 
+						a(href='/') Aug 14, 2019
+					div(class='links')
+						div(class='signup') 
+							a(href='/registration') SignUp
+			div(class='header-container')
+				div(class='header')
+					div(class='subscribe') Subscribe &#9662;
+					div(class='logo')
+						p Книжный магазин, который удивит
+					div(class='social')
+			div(class='speaker-form')
+				form(action='/authorization' method='post'  enctype='multipart/form-data')
+					div(class='form-row')
+						label(for='first_name') First Name
+						input(id='first_name' name='first_name' type='text')
+					div(class='form-row')
+						label(for='last_name') Last-name
+						input(id='last_name' name='last_name' type='text')
+					div(class='form-row')
+						label(for='email') Email
+						input(id='email' name='email' type='email'  placeholder='joe@example.com')
+					div(class='form-row')
+						button Submit
+
+
+
+
