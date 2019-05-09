@@ -1,0 +1,3 @@
+C:\Users\Дмитрий\source\repos\Coursework\Coursework\obj\Debug\Coursework.njsproj.CoreCompileInputs.cache
+C:\Users\Дмитрий\source\repos\Coursework\Coursework\bin\Microsoft.NodejsTools.WebRole.dll
+C:\Users\Дмитрий\source\repos\Coursework\Coursework\obj\Debug\Coursework.njsprojAssemblyReference.cache
