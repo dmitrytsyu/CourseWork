@@ -30,8 +30,11 @@ router.get('/authorization', async function  (req, res) {
     });
 });
 
+router.get('/cart', async function (req, res) {
 
-
+    res.render('cart', {
+    });
+});
 router.get('/registration', async function (req, res) {
     var all_positions = await get_all_positions();
     res.render('registration', {
@@ -49,31 +52,27 @@ router.post('/authorization', async function (req, res) {
             var email = (fields.email[0]).trim();
             if (first_name.length > 0 && first_name &&
                 last_name.length > 0 && last_name &&
-                email.length > 0 && email)
-            {
+                email.length > 0 && email) {
                 var id = await find_user_id(last_name, first_name, email);
                 console.log(id);
                 personal_id = id[0];
-                res.redirect('/');
             } else {
                 res.redirect('/');
-                
             }
-
         } else {
             res.redirect('/');
             console.log('Не удалось зарегистрироваться')
         }
     });
-})
+});
 
 router.post('/registration', async function (req, res) {
     var form = new multiparty.Form();
     form.parse(req, async (err, fields, files) => {
         if (!err) {
-            console.log(fields);
-            var first_name = fields.first-name[0];
-            var last_name = fields.last-name[0];
+
+            var first_name = fields.first_name[0];
+            var last_name = fields.last_name[0];
             var patronymic = fields.patronymic[0];
             var int_type = 0;
             var email = fields.email[0];
@@ -91,7 +90,7 @@ router.post('/registration', async function (req, res) {
                 int_type = 2
             }
 
-    
+
             if (first_name.length > 0 && first_name &&
                 last_name.length > 0 && last_name &&
                 patronymic.length > 0 && patronymic &&
@@ -107,15 +106,17 @@ router.post('/registration', async function (req, res) {
 
         } else {
             res.redirect('/');
-            console.log('Все плохо')
+
         }
     });
-})
+});
 
 
 function hexToBase64(str) {
     return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
 }
+
+
 async function find_user_id(last_name, first_name, email) {
     var sql_text = `select код_человека id from Человек where фамилия = @last_name and имя = @first_name and почта = @email `;
     //добавить id

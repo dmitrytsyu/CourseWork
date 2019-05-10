@@ -50,12 +50,15 @@
     <Content Include="public\stylesheets\authorization.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\Cart.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="views\authorization.pug">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\basket.pug">
+    <Content Include="views\cart.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\index.pug" />
