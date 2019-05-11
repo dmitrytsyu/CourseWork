@@ -1,11 +1,10 @@
 ﻿.content-grid-container {
-   display: flex;
-
+    display: flex;
 }
 
 .content-grid-basket {
     display: flex;
-    width: 70%;
+    width: 100%;
     border: 1px solid #D6D9DC;
     justify-content: flex-start;
     flex-direction: column;
@@ -17,7 +16,7 @@
     width: 100%;
 }
 
-.basket-image{
+.basket-image {
     width: 20%;
     display: inline-block;
 }
@@ -26,10 +25,12 @@
     width: 50%;
     display: inline-block;
 }
+
 .basket-quantity {
     display: inline-block;
     width: 15%;
 }
+
 .basket-cost {
     display: inline-block;
     width: 15%;
@@ -60,33 +61,19 @@
 
 
 .content-grid-basket a {
-        display: block;
-        color: #5D6063;
-        padding: 16px;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-.price-container {
-    width: 30%;
-    display: flex;
-    background-color: #B2D6FF;
-    justify-content: center;
-    align-items: center;
-    padding-left: 5px;
-    padding-top: 20px;
-    flex-direction: column;
-
-   
-}
-.price-cell {
     display: block;
-    
+    color: #5D6063;
+    padding: 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+
+.content-order {
+    display: flex;
     justify-content: center;
-    align-items: center;
-    border: 1px solid #D6D9DC;
-    position: fixed;
-    top: 450px;
-    right: 50px;
-    z-index: 1000;
+    padding: 20px 40px 0 40px;
+    background-color: beige;
+    flex-direction: column;
 }

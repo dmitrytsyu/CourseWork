@@ -3,13 +3,16 @@ var express = require('express');
 var router = express.Router();
 var sql = require('mssql/msnodesqlv8');
 var multiparty = require('multiparty');
-var personal_id;
+global.personal_id;
+var personal_id = 1;
 /* GET home page. */
 
 
 router.get('/', async function (req, res) {
     var all_genres = await get_all_genres();
     var all_books = await get_all_books();
+   
+    
     //console.log(all_books[0]['cover'])
     /*for (var a = 0; a < all_books.length; a++) {
         var originalBase64ImageStr = hexToBase64()
@@ -19,12 +22,13 @@ router.get('/', async function (req, res) {
 
     res.render('Main', {
         genres: all_genres,
-        books: all_books
+        books: all_books,
+        id: personal_id
     });
    
 });
 
-router.get('/authorization', async function  (req, res) {
+router.get('/authorization', async function (req, res) {
     
     res.render('authorization', {
     });
@@ -32,13 +36,39 @@ router.get('/authorization', async function  (req, res) {
 
 router.get('/cart', async function (req, res) {
 
+    console.log(personal_id)
     res.render('cart', {
     });
 });
+
+
+router.get('/orders', async function (req, res) {
+
+    console.log(personal_id)
+    res.render('orders', {
+    });
+});
+
+router.get('/order', async function (req, res) {
+
+    console.log(personal_id)
+    res.render('order', {
+    });
+});
+
 router.get('/registration', async function (req, res) {
     var all_positions = await get_all_positions();
     res.render('registration', {
         positions: all_positions
+    });
+});
+
+router.get('/book/:bookId', async function (req, res) {
+    var bookId = req.params.bookId;
+    var my_book = await get_book(bookId);
+    update_visit(bookId);
+    res.render('book', {
+        book: my_book
     });
 });
 
@@ -54,8 +84,9 @@ router.post('/authorization', async function (req, res) {
                 last_name.length > 0 && last_name &&
                 email.length > 0 && email) {
                 var id = await find_user_id(last_name, first_name, email);
-                console.log(id);
+                
                 personal_id = id[0];
+                res.redirect('/')
             } else {
                 res.redirect('/');
             }
@@ -89,7 +120,6 @@ router.post('/registration', async function (req, res) {
             else if (type == 'courier') {
                 int_type = 2
             }
-
 
             if (first_name.length > 0 && first_name &&
                 last_name.length > 0 && last_name &&
@@ -190,6 +220,24 @@ async function get_all_genres() {
 	return arr_tasks.recordset;
 }
 
+async function get_all_genres() {
+    var sql_text = `select название_жанра name from Жанр`;
+    //добавить id
+    var connection = new sql.ConnectionPool({
+        database: 'Last_db',
+        server: 'DESKTOP-KLFJQ83\\SQLEXPRESS',
+        driver: 'msnodesqlv8',
+        options: { trustedConnection: true }
+    });
+
+    await connection.connect();
+
+    var q_req = new sql.Request(connection);
+    var arr_tasks = await q_req.query(sql_text);
+
+    return arr_tasks.recordset;
+}
+
 
 
 async function get_all_positions() {
@@ -211,9 +259,9 @@ async function get_all_positions() {
 }
 
 async function get_all_books() {
-    // нужны id
-	var sql_text = `select Книга.название book_name, цена price, обложка cover 
-					from Книга`;
+    
+    var sql_text = `select Книга.название book_name, код_книги id, цена price, обложка cover 
+					from Книга order by [количество_просмотров_книги] desc`;
 	//var sql_text = `select * from Книга`
 	var connection = new sql.ConnectionPool({
 		database: 'Last_db',
@@ -230,5 +278,51 @@ async function get_all_books() {
 	return arr_tasks.recordset;
 }
 
+async function get_book(my_id) {
+    
+    var sql_text = `select код_книги id, название name_book, цена price, год_издания year_book, обложка cover, 
+        описание description_book, количество_страниц quantity from Книга
+        where код_книги = @id`;
+    //var sql_text = `select * from Книга`
+    var connection = new sql.ConnectionPool({
+        database: 'Last_db',
+        server: 'DESKTOP-KLFJQ83\\SQLEXPRESS',
+        driver: 'msnodesqlv8',
+        options: { trustedConnection: true }
+    });
+
+    await connection.connect();
+
+    var q_req = new sql.Request(connection);
+    var arr_tasks = await q_req
+        .input("id", sql.Int, my_id)
+        .query(sql_text);
+
+    return arr_tasks.recordset;
+}
+
+
+async function update_visit(id) {
+
+    var sql_text = `update Книга
+    set количество_просмотров_книги = количество_просмотров_книги + 1
+    where код_книги = @id`;
+    //var sql_text = `select * from Книга`
+    var connection = new sql.ConnectionPool({
+        database: 'Last_db',
+        server: 'DESKTOP-KLFJQ83\\SQLEXPRESS',
+        driver: 'msnodesqlv8',
+        options: { trustedConnection: true }
+    });
+
+    await connection.connect();
+
+    var q_req = new sql.Request(connection);
+    var arr_tasks = await q_req
+        .input("id", sql.Int, id)
+        .query(sql_text);
+
+    return arr_tasks.recordset;
+}
 
 module.exports = router;

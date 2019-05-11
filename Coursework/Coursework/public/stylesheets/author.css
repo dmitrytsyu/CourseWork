@@ -62,3 +62,20 @@
     .form-row button:active {
         background-color: #407FC7;
     }
+
+    .form-row textarea {
+        font-family: "Helvetica", "Arial", sans-serif;
+        font-size: 14px;
+        border: 1px solid #D6D9DC;
+        border-radius: 3px;
+        min-height: 200px;
+        margin-bottom: 10px;
+        padding: 7px;
+        
+    }
+
+    .form-row .instructions {
+        color: #999999;
+        font-size: 14px;
+        margin-bottom: 30px;
+    }

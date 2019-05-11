@@ -3,8 +3,7 @@ html
 	head
 		title=title
 		link(rel='stylesheet', href='/stylesheets/main.css')
-		link(rel='stylesheet', href='/stylesheets/cart.css')
-		
+		link(rel='stylesheet', href='/stylesheets/orders.css')
 		<meta charset='UTF-8'>
 	body
 		block content
@@ -35,21 +34,19 @@ block content
 			button Submit
 		div(class='content-grid-container')
 			div(class='content-grid-basket')
-				-for(var x = 0; x < 9; x++)
-					div(class='content-grid-basket-cell')
-						div(class='basket-image')
-						div(class='basket-book')
-							div(class='basket-cell-top')
-								a(href='/' class='my_href') Название книги
-							div(class='basket-cell-bottom') Цена
-						div(class='basket-quantity')
-							div(class='basket-cell-top') Количество
-							div(class='basket-cell-bottom') textarea
-						div(class='basket-cost')
-							div(class='basket-cell-top') Итог
-							div(class='basket-cell-bottom') Цифра
-			div(class='price-container')
-				div(class='price-cell') Сумма
-					p 450
-					a(href='/order') Order
-				//-div(class='price-cell')
+				div(class='content-order')
+					-for(var x = 0; x < 9; x++)
+						div(class='content-grid-basket-cell')
+							div(class='basket-image')
+							div(class='basket-book')
+								div(class='basket-cell-top')
+									a(href='/' class='my_href') Название книги
+								div(class='basket-cell-bottom') Цена
+							div(class='basket-quantity')
+								div(class='basket-cell-top') Количество
+								div(class='basket-cell-bottom') textarea
+							div(class='basket-cost')
+								div(class='basket-cell-top') Итог
+								div(class='basket-cell-bottom') Цифра
+				
+				// Здесь будет кнопка, показывающая дополнительные параметры покупки

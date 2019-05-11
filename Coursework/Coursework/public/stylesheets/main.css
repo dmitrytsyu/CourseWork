@@ -114,8 +114,7 @@ body {
     background-color: #D6E9FE;
     display: flex;
     justify-content: center;
-    padding: 50px;
-    
+    padding: 20px;
     align-self: center;
 }
 
@@ -177,11 +176,7 @@ body {
     display: flex;
 }
 
-.content-grid {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
+
 
 .sidebar {
     width: 30%;
@@ -212,42 +207,34 @@ body {
             background-color: #D6E9FE;
            
         }
-    
+
+.content-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 
 
 .book-grid {
+    display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 300px;
     height: 300px;
-    padding: 5px;
     border: 1px solid #D6D9DC;
     border-radius: 2px;
+    margin: 5px 10px 10px 15px;
 }
-
-    .book-grid a {
-        display: block;
-        color: coral;
-        padding: 10px;
-        text-decoration: none;
-        font-weight: bold;
-        text-align: center;
-    }
-
-    .book-grid p {
-        justify-content: center;
-        display: flex;
-    }
-
-    .book-grid a:hover,
-    .book-grid a:visited:hover{
-    background-color: #76AEED;
-    color: #FFF;
-    }
+    
 
 
-
-
+.book-grid-image {
+    display: flex;
+    border: 2px solid #76AEED;
+    height: 200px;
+    width: 200px;
+}
 /*table {
     display: inline;
     background-color: aqua;
@@ -264,7 +251,7 @@ li{
     display: table;
     width: auto;
 } */
-    .call-to-action {
+.call-to-action {
     font-style: italic;
     background-color: #EEB75A; /* Yellow */
 }

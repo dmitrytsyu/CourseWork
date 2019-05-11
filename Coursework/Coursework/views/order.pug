@@ -1,0 +1,64 @@
+﻿doctype html
+html
+	head
+		title=title
+		link(rel='stylesheet', href='/stylesheets/main.css')
+		link(rel='stylesheet', href='/stylesheets/author.css')
+		<meta charset='UTF-8'>
+	
+		block content
+			body
+			div(class='page')
+				div(class='menu-container')
+					div(class='menu ')
+						div(class='main') 
+							a(href='/') Aug 14, 2019
+						div(class='cart')
+							a(href='/cart') Cart
+						div(class='signup') 
+							a(href='/registration') SignUp
+						div(class='login') 
+							a(href='/authorization') LogIn
+						div(class='orders')
+							a(href='/orders') Orders
+				div(class='header-container')
+					div(class='header')
+						div(class='subscribe') Subscribe &#9662;
+						div(class='logo')
+							p Книжный магазин, который удивит
+						div(class='social')
+				form(class='search-form' action='/' method='post')
+					input(id='request' name='request' type='text')
+					button Submit
+				div(class='speaker-form')
+					form(action='/order/new' method='post' enctype='multipart/form-data')
+							div(class='form-row')
+								label(for='full_name') Full name
+								input(id='full_name' name='full_name' type='text')
+							div(class='form-row')
+								label(for='email') Email
+								input(id='email' name='email' type='email'  placeholder='joe@example.com')
+							div(class='form-row')
+								label(for='phone') Phone
+								input(id='phone' name='phone' type='tel')
+							div(class='form-row')
+								label(for='type') Type of receiving
+								select(id='type' name='type')
+									option(value='pickup' id='pickup' selected) Pickup
+									option(value='delivery' id='delivery') Delivery
+							div(class='form-row')
+								label(for='adress') Adress
+								input(id='adress' name='adress' type='text')
+							div(class='form-row')
+								label(for='adress') Adress
+								input(id='adress' name='adress' type='text')
+							div(class='form-row')
+								label(for='comments') Comments
+								textarea(id='comments' name='comments')
+								div(class='instructions') Describe your talk in 500 words or less
+
+							div(class='form-row')
+								button Submit
+
+
+

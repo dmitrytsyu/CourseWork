@@ -1,0 +1,60 @@
+﻿doctype html
+html
+	head
+		title=title
+		link(rel='stylesheet', href='/stylesheets/main.css')
+		link(rel='stylesheet', href='/stylesheets/book.css')
+		<meta charset='UTF-8'>
+	
+		block content
+			body
+			div(class='page')
+				div(class='menu-container')
+					div(class='menu')
+						div(class='date') 
+							a(href='/') Aug 14, 2019
+						div(class='cart')
+							a(href='/cart') Cart
+						div(class='signup') 
+							a(href='/registration') SignUp
+						div(class='login') 
+							a(href='/authorization') LogIn
+						div(class='orders')
+							a(href='/orders') Orders
+				div(class='header-container')
+					div(class='header')
+						div(class='subscribe') Subscribe &#9662;
+						div(class='logo')
+							p Книжный магазин, который удивит
+						div(class='social')
+				form(class='search-form' action='/' method='post')
+					input(id='request' name='request' type='text')
+					button Submit
+				div(class='content-grid-container')
+					div(class='content-sidebar-image')
+						div(class='image') Привет
+					div(class='content-grid')
+						h2 #{book[0]['name_book']}
+						div(class='content-grid-cell')
+							div(class='content-grid-cell-shell')
+								div(class='content-grid-cell-top') Название
+								div(class='content-grid-cell-bottom') #{book[0]['name_book']}
+						div(class='content-grid-cell')
+							div(class='content-grid-cell-shell')
+								div(class='content-grid-cell-top') Цена
+								div(class='content-grid-cell-bottom') #{book[0]['price']}
+						div(class='content-grid-cell')
+							div(class='content-grid-cell-shell')
+								div(class='content-grid-cell-top') Год издания
+								div(class='content-grid-cell-bottom') #{book[0]['year_book']}
+						div(class='content-grid-cell')
+							div(class='content-grid-cell-shell')
+								div(class='content-grid-cell-top') Количество страниц
+								div(class='content-grid-cell-bottom')  #{book[0]['quantity']}
+						div(class='content-grid-cell')
+							div(class='content-grid-cell-shell')
+								div(class='content-grid-cell-top') Описание
+								div(class='content-grid-cell-bottom description') #{book[0]['description_book']}
+					div(class='button-container')
+						div(class='button-cell') 
+							a(href='/') Добавить в корзину

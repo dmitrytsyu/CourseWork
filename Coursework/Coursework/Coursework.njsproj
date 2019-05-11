@@ -50,12 +50,21 @@
     <Content Include="public\stylesheets\authorization.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\book.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\Cart.css">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\stylesheets\main.css" />
+    <Content Include="public\stylesheets\orders.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="README.md" />
     <Content Include="views\authorization.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\book.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\cart.pug">
@@ -65,6 +74,12 @@
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
     <Content Include="views\Main.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\order.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\orders.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\registration.pug">
