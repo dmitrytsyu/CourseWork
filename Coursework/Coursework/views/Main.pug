@@ -17,7 +17,12 @@ block content
 					div(class='login') 
 						a(href='/authorization') LogIn
 				else
+					alert( "Привет" )
+					div(class='user-links')
 						div(class='signup') Welcome #{id}
+						form(action='/' method='post' class='logout')
+							input(type='hidden' name='button-submit' id='button-submit')
+							button(class='button-link') Logout
 				
 		div(class='header-container')
 			div(class='header')
@@ -41,9 +46,11 @@ block content
 							img(src='')
 						
 						a(href='/book/'+ books[x]['id'] ) #{books[x]['book_name']}
-						p 
 						p #{books[x]['price']}
-						a(href='/') Добавить в корзину
+						form(action='/add_to_сart?book_id=' + books[x]['id'] + '&?increment=1' method='post')
+							button(class='button-link') Добавить в корзину
+						
+
 						
 						
 						

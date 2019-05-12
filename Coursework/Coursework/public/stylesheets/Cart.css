@@ -6,6 +6,7 @@
 .content-grid-basket {
     display: flex;
     width: 70%;
+    min-height: 900px;
     border: 1px solid #D6D9DC;
     justify-content: flex-start;
     flex-direction: column;
@@ -18,7 +19,7 @@
 }
 
 .basket-image{
-    width: 20%;
+    width: 15%;
     display: inline-block;
 }
 
@@ -33,6 +34,11 @@
 .basket-cost {
     display: inline-block;
     width: 15%;
+}
+
+.basket-delete{
+    display:inline-block;
+    width: 5%;
 }
 
 .basket-cell-top {
