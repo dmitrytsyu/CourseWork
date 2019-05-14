@@ -17,13 +17,12 @@ block content
 					div(class='login') 
 						a(href='/authorization') LogIn
 				else
-					alert( "Привет" )
 					div(class='user-links')
 						div(class='signup') Welcome #{id}
 						form(action='/' method='post' class='logout')
 							input(type='hidden' name='button-submit' id='button-submit')
 							button(class='button-link') Logout
-				
+			
 		div(class='header-container')
 			div(class='header')
 				div(class='subscribe') Subscribe &#9662;
@@ -47,8 +46,8 @@ block content
 						
 						a(href='/book/'+ books[x]['id'] ) #{books[x]['book_name']}
 						p #{books[x]['price']}
-						form(action='/add_to_сart?book_id=' + books[x]['id'] + '&?increment=1' method='post')
-							button(class='button-link') Добавить в корзину
+						//form(action='/сart?bookId=' + books[x]['id'] + '&?increment=1' method='post' enctype='multipart/form-data')
+						button(class='button-link' onclick='add_book_to_cart_click(' + books[x]['id'] + ')') Добавить в корзину
 						
 
 						

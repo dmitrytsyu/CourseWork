@@ -5,7 +5,7 @@ html
 		
 		link(rel='stylesheet', href='/stylesheets/author.css')
 		link(rel='stylesheet', href='/stylesheets/main.css')
-
+		script(src='/ajax.js')
 		<meta charset='UTF-8'>
 	body
 		block content
@@ -37,18 +37,11 @@ html
 							p Книжный магазин, который удивит
 						div(class='social')
 				div(class='speaker-form')
-					form(action='/authorization' method='post' enctype='multipart/form-data')
 						div(class='form-row')
-							label(for='first_name') First name
-							input(id='first_name' name='first_name' type='text')
-						div(class='form-row')
-							label(for='last_name') Last name
-							input(id='last_name' name='last_name' type='text')
-						div(class='form-row')
-							label(for='email') Email
-							input(id='email' name='email' type='email'  placeholder='joe@example.com')
-						div(class='form-row')
-							button Submit
+							p #{result}
+							// ссылка на главную
+							button(onclick = 'update_date_of_pay('+ cart_id + ')') Оплатить
+						
 
 
 

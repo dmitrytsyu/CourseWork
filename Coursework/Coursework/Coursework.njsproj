@@ -40,6 +40,9 @@
     <Compile Include="app.js">
       <TestFramework>Jest</TestFramework>
     </Compile>
+    <Compile Include="public\ajax.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
     <Content Include="libman.json" />
@@ -80,6 +83,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\orders.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\pay.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\registration.pug">

@@ -10,13 +10,38 @@
     flex-direction: column;
 }
 
-.content-grid-basket-cell {
+.content-grid-basket-cell
+ {
     display: block;
     height: 150px;
     width: 100%;
 }
 
+.content-grid {
+    display: block;
+    height: 200px;
+    width: 100%;
+    color: orangered;
+}
+
 .basket-image {
+    width: 20%;
+    display: inline-block;
+}
+
+.detail-cell {
+    width: 60%;
+    display: inline-block;
+}
+
+.details {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+.payment,
+.result {
     width: 20%;
     display: inline-block;
 }

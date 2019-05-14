@@ -4,7 +4,7 @@ html
 		title=title
 		link(rel='stylesheet', href='/stylesheets/main.css')
 		link(rel='stylesheet', href='/stylesheets/cart.css')
-		
+		script(src='/ajax.js')
 		<meta charset='UTF-8'>
 	body
 		block content
@@ -17,13 +17,20 @@ block content
 				div(class='date') 
 					a(href='/') Aug 14, 2019
 				div(class='cart')
-						a(href='/cart') Cart
-				div(class='signup') 
-					a(href='/registration') SignUp
-				div(class='login') 
-					a(href='/authorization') LogIn
+					a(href='/cart') Cart
 				div(class='orders')
 					a(href='/orders') Orders
+				if id == 1
+					div(class='signup')
+						a(href='/registration') SignUp
+					div(class='login') 
+						a(href='/authorization') LogIn
+				else
+					div(class='user-links')
+						div(class='signup') Welcome #{id}
+						form(action='/' method='post' class='logout')
+							input(type='hidden' name='button-submit' id='button-submit')
+							button(class='button-link') Logout
 		div(class='header-container')
 			div(class='header')
 				div(class='subscribe') Subscribe &#9662;
@@ -44,16 +51,19 @@ block content
 							div(class='basket-cell-bottom') #{book.price}
 						div(class='basket-quantity')
 							div(class='basket-cell-top') Количество
-							div(class='basket-cell-bottom') #{book.quantity}
-								form(action='/add_to_сart?book_id='+ book.id method=post)
-									input(type='number' name="increment" onblur="submit();" min='1')
+							div(class='basket-cell-bottom') 
+								input(type='number' class='quantity' id='book_' + book.id  min='1' value= book.quantity onchange='book_to_cart_change(' + book.id +',' + book.price +')'
+								onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57)")
 						div(class='basket-cost')
 							div(class='basket-cell-top') Итог
-							div(class='basket-cell-bottom') #{book.result}
-						div(class='basket-delete') Удалить
-							
+							div(class='basket-cell-bottom') 
+								input(type='text' class='result' name="result" id='result_' + book.id  min='1' value=book.result
+								 readonly='true')
+						div(class='basket-cell-bottom' ) 
+							input(type='button' class='button-header' onclick='delete_book_from_cart('+ book.id + ')') Удалить
+						
 			div(class='price-container')
 				div(class='price-cell') Сумма
-					p #{result}
+					p(id='total') #{result}
 					a(href='/order') Order
 				//-div(class='price-cell')
