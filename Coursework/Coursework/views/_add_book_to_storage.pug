@@ -1,0 +1,63 @@
+﻿doctype html
+html
+	head
+		title=title
+		link(rel='stylesheet', href='/stylesheets/main.css')
+		link(rel='stylesheet', href='/stylesheets/author.css')
+		<meta charset='UTF-8'>
+	
+		block content
+			body
+			div(class='page')
+				div(class='menu-container')
+					div(class='menu')
+						div(class='date') 
+							a(href='/') Aug 14, 2019
+						div(class='cart')
+							a(href='/cart') Cart
+						div(class='orders')
+							a(href='/orders') Orders
+						if id == 1
+							div(class='signup')
+								a(href='/registration') SignUp
+							div(class='login') 
+								a(href='/authorization') LogIn
+						else
+							div(class='user-links')
+								div(class='signup') Welcome #{id}
+								form(action='/' method='post' class='logout')
+									input(type='hidden' name='button-submit' id='button-submit')
+									button(class='button-link') Logout
+						if type == 1
+							div(class='features') Features
+				div(class='header-container')
+					div(class='header')
+						div(class='subscribe') Subscribe &#9662;
+						div(class='logo')
+							p Книжный магазин, который удивит
+						div(class='social')
+				form(class='search-form' action='/' method='post')
+					input(id='request' name='request' type='text')
+					button Submit
+				if type == 1
+					div(class='speaker-form')
+						form(action='/add_book_to_storage' method='post' enctype='multipart/form-data')
+								div(class='form-row')
+									label(for='books') Name of book
+									select(name='books')
+										each book in books
+											option(value= book.book_name id='book' + book.id) #{book.book_name}
+								div(class='form-row')
+									label(for='quantity') Quantity
+									input(id='quantity' name='quantity' type='number')
+								div(class='form-row')
+									label(for='year') Year 
+									input(id='year' name='year' type='number')
+								div(class='form-row')
+									button Submit
+				else
+					div(class='form-row') Недоступно
+
+
+
+

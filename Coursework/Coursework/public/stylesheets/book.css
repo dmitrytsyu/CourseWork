@@ -1,6 +1,7 @@
 ﻿.content-grid-container {
     display: flex;
     height: auto;
+    min-height: 1000px;
 }
 
 .content-sidebar-image {

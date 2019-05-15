@@ -82,7 +82,7 @@ block content
 									if orders[i]['price_of_delivery'] > 0
 										p Цена доставки #{orders[i]['price_of_delivery']}
 									button(onclick='close_details()' class='details')
-								button(class='button-relative' onclick='show_details('+ orders[i]['id_cart'] +')') Details
+								button(class='button-relative' onclick='show_close_details('+ orders[i]['id_cart'] +')') Details
 							div(class='payment')
 								a(href='/pay/'+ orders[i]['id_cart'] ) Pay
 							div(class='result')

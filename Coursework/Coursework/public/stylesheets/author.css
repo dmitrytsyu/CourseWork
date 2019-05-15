@@ -9,6 +9,7 @@
     padding: 50px;
     margin: 0 0 40px 0;
     height: auto;
+    min-height: 900px;
 }
 
 .form-row {

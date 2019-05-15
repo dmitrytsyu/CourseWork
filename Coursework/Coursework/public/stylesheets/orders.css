@@ -8,6 +8,7 @@
     border: 1px solid #D6D9DC;
     justify-content: flex-start;
     flex-direction: column;
+    min-height: 900px;
 }
 
 .content-grid-basket-cell

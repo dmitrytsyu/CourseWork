@@ -53,7 +53,6 @@ html
 								select(id='type' name='type')
 									option(value='pickup' id='pickup' selected) Pickup
 									option(value='delivery' id='delivery') Delivery
-									//Здесь будет цена 
 							div(class='form-row')
 								label(for='price') Price
 								input(id='price' name='price' type='text')
@@ -61,13 +60,16 @@ html
 								label(for='adress') Adress
 								input(id='adress' name='adress' type='text')
 							div(class='form-row')
+								label(for='date') Date
+								input(id='date' name='date' type='date' min='2019-05-20' value='2019-05-16')
+							div(class='form-row')
 								label(for='comments') Comments
 								textarea(id='comments' name='comments')
 								div(class='instructions') Describe your talk in 500 words or less
 
 							div(class='form-row') 
 								//это будет скорей всего ссылка на страничку оплаты
-								 Submit
+								button Submit
 
 
 

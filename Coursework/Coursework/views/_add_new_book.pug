@@ -1,0 +1,98 @@
+﻿doctype html
+html
+	head
+		title=title
+		link(rel='stylesheet', href='/stylesheets/main.css')
+		link(rel='stylesheet', href='/stylesheets/author.css')
+		<meta charset='UTF-8'>
+		script(src='/ajax.js')
+	
+		block content
+			body
+			div(class='page')
+				div(class='menu-container')
+					div(class='menu')
+						div(class='date') 
+							a(href='/') Aug 14, 2019
+						div(class='cart')
+							a(href='/cart') Cart
+						div(class='orders')
+							a(href='/orders') Orders
+						if id == 1
+							div(class='signup')
+								a(href='/registration') SignUp
+							div(class='login') 
+								a(href='/authorization') LogIn
+						else
+							div(class='user-links')
+								div(class='signup') Welcome #{id}
+								form(action='/' method='post' class='logout')
+									input(type='hidden' name='button-submit' id='button-submit')
+									button(class='button-link') Logout
+						if type == 1
+							div(class='features') Features
+				div(class='header-container')
+					div(class='header')
+						div(class='subscribe') Subscribe &#9662;
+						div(class='logo')
+							p Книжный магазин, который удивит
+						div(class='social')
+				form(class='search-form' action='/' method='post')
+					input(id='request' name='request' type='text')
+					button Submit
+				if type == 1
+					div(class='speaker-form')
+						form(action='/add_new_book' method='post' enctype='multipart/form-data')
+								div(class='form-row')
+									label(for='book_name') Name
+									input(id='book_name' name='book_name' type='text')
+								div(class='form-row')
+									label(for='price_book') Price
+									input(id='price_book' name='price_book' type='number' min=0)
+								div(class='form-row')
+									label(for='year_book') Year of 
+									input(id='year_book' name='year_book' type='number')
+								div(class='form-row')
+									label(for='quantity') Quantity of pages
+									input(id='quantity' name='quantity' type='number')
+								div(class='form-row')
+									label(for='description') Description
+									textarea(id='description' name='description')
+								div(class='form-row')
+									label(for='genre') Name of genre
+									select(name='genre' onchange='select_input_genre(this.value)')
+										each genre in genres
+											option(value=genre.name id='genre' + genre.id_genre) #{genre.name}
+										option(value='new_genre' id='new_genre') Добавить новый жанр
+								div(class='form-row' style='display: none' id='input_genre_form')
+									label(for='input_genre') Input new genre
+									input(name='input_genre' id='input_genre' type='text')
+								div(class='form-row')
+									label(for='subgenre') Name of subgenre
+									select(name='subgenre' onchange='select_input_subgenre(this.value)')
+										each subgenre in subgenres
+											option(value= subgenre.name_subgenre id='subgenre' + subgenre.id_subgenre) #{subgenre.name_subgenre}
+										option(value='new_subgenre' id='new_subgenre' ) Добавить новый жанр
+								div(class='form-row' style='display: none' id ='input_subgenre-form')
+									label(for='input_subgenre') Input new subgenre
+									input(id='input_subgenre' name='input_subgenre' type='text')
+								div(class='form-row')
+									label(for='first_name_author') First name of author
+									input(id='first_name_author' name='first_name_author' type='text')
+								div(class='form-row')
+									label(for='last_name_author') Last name of author
+									input(id='last_name_author' name='last_name_author' type='text')
+								div(class='form-row')
+									label(for='patronymic') Patronymic of author
+									input(id='patronymic' name='patronymic' type='text')
+								div(class='form-row')
+									label(for='path') Path to cover
+									input(id='path' name='path' type='text')
+								div(class='form-row')
+									button Submit
+				else
+					div(class='form-row') Недоступно
+
+
+
+

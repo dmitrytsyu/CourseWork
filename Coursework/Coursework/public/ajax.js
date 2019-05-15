@@ -8,15 +8,52 @@ function update_date_of_pay(cart_id) {
     post_update_date_of_pay(cart_id);
 }
 
-function show_details(details_cart) {
-    document.getElementById('details' + details_cart).style.display = 'block';
+function show_close_details(details_cart) {
+    var style = document.getElementById('details' + details_cart).style.display;
+    if (style == 'none') {
+        document.getElementById('details' + details_cart).style.display = 'block';
+    }
+    else {
+        document.getElementById('details' + details_cart).style.display = 'none';
+    }
+    
 }
 
-function close_details(details_cart) {
-    document.getElementById('details' + details_cart).style.display = 'none';
-    alert(document.getElementById('details').style.display);
+function select_input_genre(value) {
+   
+
+   
+    if (value == document.getElementById('new_genre').value) {
+        document.getElementById('input_genre_form').style.display = 'block';
+    }
+    else {
+        document.getElementById('input_genre_form').style.display = 'none';
+    }
 }
 
+function select_input_subgenre(value) {
+    
+    if (value == document.getElementById('new_subgenre').value) {
+        document.getElementById('input_subgenre-form').style.display = 'block';
+    }
+    else {
+        document.getElementById('input_subgenre-form').style.display = 'none';
+    } 
+}
+
+function appear_dissapear_details(value) {
+    if (document.getElementById('details' + value).style.display == 'none') {
+        document.getElementById('details' + value).style.display = 'block';
+    }
+    else {
+        document.getElementById('details' + value).style.display = 'block';
+    }
+}
+
+function delete_book_from_cart(bookId) {
+    //var value = document.getElementById('book_' + bookId).value;
+    post_delete_book(bookId)
+}
 
 
 
@@ -33,9 +70,16 @@ function book_to_cart_change(bookId, price) {
     
 }
 
-function delete_book_from_cart(bookId) {
-    var value = document.getElementById('book_' + bookId).value;
+function join_to_cart(cart_id) {
+    alert('Кнопка работает- измени параметр')
+    //post_join_to_cart(cart_id);
 }
+
+function join_to_cart_courier(cart_id) {
+    alert('Кнопка работает- измени параметр')
+    //post_join_to_cart(cart_id);
+}
+
 
 function post_add_book(bookId, increment, callback) {
     var xhr = new XMLHttpRequest(); // query object
@@ -176,4 +220,29 @@ function post_update_date_of_pay(cart_id, callback) {
     };
 }
 
+function post_join_to_cart(cart_id, callback) {
+    var xhr = new XMLHttpRequest(); // query object
+    var url = "/join_to_user/" + cart_id; // target action
+    xhr.open("POST", url); // starting the request
+    xhr.setRequestHeader("content-type", "application/json");
+
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            var obj = xhr.responseText;
+            if (obj == null || obj == "") {
+                callback(null);
+            }
+            else {
+                try {
+                    var result = eval("(" + obj + ")");
+                    callback(result);
+                }
+                catch (EX) {
+                    callback(null);
+                }
+            }
+        }
+    };
+}
 

@@ -63,7 +63,16 @@
     <Content Include="public\stylesheets\orders.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\_features.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="README.md" />
+    <Content Include="views\_add_book_to_storage.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\_add_new_book.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\authorization.pug">
       <SubType>Code</SubType>
     </Content>
@@ -89,6 +98,15 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\registration.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\_courier_join_to_order.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\_vendor_join_to_cart.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\_vendor_carts.pug">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
