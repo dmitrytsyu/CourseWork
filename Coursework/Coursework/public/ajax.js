@@ -1,9 +1,15 @@
-﻿
-function add_book_to_cart_click(bookId) {
+﻿function add_book_to_cart_click(bookId) {
     //var priority = document.getElementById('select_priority_' + taskid).value;
     post_add_book(bookId, 1);
     
 }
+
+
+
+function hexToBase64(str) {
+    return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+}
+
 function update_date_of_pay(cart_id) {
     post_update_date_of_pay(cart_id);
 }
@@ -16,13 +22,9 @@ function show_close_details(details_cart) {
     else {
         document.getElementById('details' + details_cart).style.display = 'none';
     }
-    
 }
 
 function select_input_genre(value) {
-   
-
-   
     if (value == document.getElementById('new_genre').value) {
         document.getElementById('input_genre_form').style.display = 'block';
     }
@@ -51,11 +53,8 @@ function appear_dissapear_details(value) {
 }
 
 function delete_book_from_cart(bookId) {
-    //var value = document.getElementById('book_' + bookId).value;
-    post_delete_book(bookId)
+    post_delete_book(bookId);
 }
-
-
 
 function book_to_cart_change(bookId, price) {
     var value = document.getElementById('book_' + bookId).value;
@@ -136,18 +135,22 @@ function post_update_book_value(bookId, value, callback) {
         }
 
     };
+
     xhr.send(JSON.stringify({  // convert object to string and send it to the server
         value: value
     }));
 }
 
+
+
 function post_delete_book(bookId, callback) {
+    
     var xhr = new XMLHttpRequest(); // query object
-    var url = "/cart/delete_personal_book/" + bookId; // target action
-    xhr.open("POST", url); // starting the request
+    var url = "/cart/delete/" + bookId;
+    xhr.open("POST", url, true); // starting the request
+    xhr.send();
     xhr.setRequestHeader("content-type", "application/json");
-
-
+    
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             var obj = xhr.responseText;
@@ -168,9 +171,10 @@ function post_delete_book(bookId, callback) {
 }
 // не нужно
 function post_update_cart_status(callback) {
+   
     var xhr = new XMLHttpRequest(); // query object
     var url = "/cart/order"; // target action
-    xhr.open("POST", url); // starting the request
+    xhr.open("POST", url, true); // starting the request
     xhr.setRequestHeader("content-type", "application/json");
 
 
@@ -195,12 +199,13 @@ function post_update_cart_status(callback) {
 
 
 function post_update_date_of_pay(cart_id, callback) {
+    alert(cart_id)
     var xhr = new XMLHttpRequest(); // query object
     var url = "/pay/" + cart_id; // target action
-    xhr.open("POST", url); // starting the request
+    xhr.open("POST", url, true); // starting the request
     xhr.setRequestHeader("content-type", "application/json");
-
-
+    xhr.send();
+    
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             var obj = xhr.responseText;
@@ -223,7 +228,7 @@ function post_update_date_of_pay(cart_id, callback) {
 function post_join_to_cart(cart_id, callback) {
     var xhr = new XMLHttpRequest(); // query object
     var url = "/join_to_user/" + cart_id; // target action
-    xhr.open("POST", url); // starting the request
+    xhr.open("POST", url, true); // starting the request
     xhr.setRequestHeader("content-type", "application/json");
 
 

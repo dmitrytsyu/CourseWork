@@ -52,16 +52,16 @@ block content
 						div(class='basket-quantity')
 							div(class='basket-cell-top') Количество
 							div(class='basket-cell-bottom') 
-								input(type='number' class='quantity' id='book_' + book.id  min='1' value= book.quantity onchange='book_to_cart_change(' + book.id +',' + book.price +')'
-								onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57)")
+								input(type='number' class='quantity' id='book_' + book.id  min='1' value= book.quantity 
+								onchange='book_to_cart_change(' + book.id +',' + book.price +')' onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57)") 
 						div(class='basket-cost')
 							div(class='basket-cell-top') Итог
 							div(class='basket-cell-bottom') 
-								input(type='text' class='result' name="result" id='result_' + book.id  min='1' value=book.result
-								 readonly='true')
-						div(class='basket-cell-bottom' ) 
-							input(type='button' class='button-header' onclick='delete_book_from_cart('+ book.id + ')') Удалить
-						
+								input(type='text' class='result' name="result" id='result_' + book.id  min='1' 
+								value=book.result readonly='true')
+						div(class='basket-delete')
+							button( type='button'  onclick='delete_book_from_cart('+ book.id + ')') Удалить
+							
 			div(class='price-container')
 				div(class='price-cell') Сумма
 					p(id='total') #{result}

@@ -24,7 +24,7 @@
 }
 
 .basket-book {
-    width: 50%;
+    width: 45%;
     display: inline-block;
 }
 .basket-quantity {
@@ -38,7 +38,7 @@
 
 .basket-delete{
     display:inline-block;
-    width: 5%;
+    width: 10%;
 }
 
 .basket-cell-top {

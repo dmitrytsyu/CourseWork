@@ -9,28 +9,49 @@ global.personal_type;
 var personal_type = 1;
 
 
-
 router.get('/', async function (req, res) {
     var all_genres = await get_all_genres();
     var all_books = await get_all_books();
+    //var covers = [];
+    //for (var a = 0; a < all_books.length; a++) {
+    //    var originalbase64imagestr = all_books[a]['cover'];
+    //    //var image = new image;
+    //    //var originalbase64imagestr = hextobase64(originalbase64imagestr);
+    //    //covers.push(originalbase64imagestr)
+    //    // var decodedimage = new buffer(originalbase64imagestr, 'base64');
+        
+    //} 
    
-    
-    //console.log(all_books[0]['cover'])
-    /*for (var a = 0; a < all_books.length; a++) {
-        var originalBase64ImageStr = hexToBase64()
-        //var originalBase64ImageStr = new Buffer(all_books[a]['cover'].Image).toString('utf8');
-        var decodedImage = new Buffer(originalBase64ImageStr, 'base64');
-    } */
-    
-    res.render('Main',  {
+    res.render('main',  {
         genres: all_genres,
         books: all_books,
         id: personal_id
         
     });
-   
 });
 
+router.get('/take_books', async function (req, res) {
+   
+    var all_books = await get_all_books();
+    var covers = {};
+    for (var a = 0; a < all_books.length; a++) {
+        if (all_books[a]['cover'] != null) {
+            var base64 = new Buffer(all_books[a]['cover'], 'binary').toString('base64')
+            covers[all_books[a]['id']] = base64
+        }
+        else {
+            covers[all_books[a]['id']] = 'no_image'
+        }
+    //    var originalbase64imagestr = all_books[a]['cover'];
+    //    //var image = new image;
+    //    //var originalbase64imagestr = hextobase64(originalbase64imagestr);
+    //    //covers.push(originalbase64imagestr)
+    //    // var decodedimage = new buffer(originalbase64imagestr, 'base64');
+    }
+    
+    res.json(covers);
+    
+});
 router.post('/', async function (req, res) {
     personal_id = 1;
     var all_genres = await get_all_genres();
@@ -251,11 +272,30 @@ router.post('/cart/add_to_cart/:book_id', async function (req, res) {
 });
 
 
+
+router.post('/cart/delete/:bookId', async function (req, res) {
+    var bookId = req.params.bookId;
+    
+    if (personal_id != 1) {
+        await delete_personal_book(bookId, personal_id);
+        res.json({
+            success: true
+        });
+    }
+    else {
+        console.log('Все плохо')
+        res.json({
+            success: false
+        });
+    } 
+
+});
+
 router.post('/cart/update_book_value/:book_id', async function (req, res) {
     // По-хорошему сделать проверку на вхождение в id
     var bookId = req.params.book_id;
     var value = req.body.value;
-    
+    console.log('пишет')
     if (personal_id != 1) {
         if (value > 1) {
             await update_book_value(bookId, personal_id, value)
@@ -275,23 +315,11 @@ router.post('/cart/update_book_value/:book_id', async function (req, res) {
     }
 });
 
-router.post('/cart/delete_personal_book/:book_id', async function (req, res) {
-    
-    var bookId = req.params.book_id;
 
-    if (bookId > 1 && personal_id != 1) {
-        await delete_personal_book(bookId, personal_id);
 
-        res.json({
-            success: true
-        });
 
-    } else {
-        res.redirect('/');
-    }
-    
-    
-});
+
+
 
 router.post('/cart/order', async function (req, res) {
     if (personal_id != 1) {
@@ -309,7 +337,7 @@ router.post('/cart/order', async function (req, res) {
 
 router.get('/orders', async function (req, res) {
     var cards = [{ cart_id: 0 }];
-    console.log(cards[0])
+    
     if (personal_id != 1) {
         var orders = await get_all_personal_orders(personal_id);
         
@@ -321,9 +349,8 @@ router.get('/orders', async function (req, res) {
             });
         }
         else {
-            var order_id = parseINt(orders[0]['id_cart']);
-            console.log(order_id)
-
+            var order_id = parseInt(orders[0]['id_cart']);
+            
             res.render('orders', {
                 id: personal_id,
                 orders: orders,
@@ -341,7 +368,6 @@ router.get('/orders', async function (req, res) {
     }
     
 });
-
 
 
 router.get('/order', async function (req, res) {
@@ -439,7 +465,7 @@ router.post('/order/new', async function (req, res) {
                 await update_cart_status(personal_id);
                 await add_order(full_name, email, phone, int_type, comments, personal_id, price);
                 
-                res.render('/pay/' + last_cart);
+                res.render('/pay/' + last_cart[0]['cart_id']);
             } else {
                 res.redirect('/');
             }
@@ -521,10 +547,11 @@ router.get('/pay/:cart_id', async function (req, res) {
     if (personal_id != 1) {
         var cart_id = req.params.cart_id;
         var total = await get_result_by_cart(personal_id, cart_id);
+        
         res.render('pay', {
             id: personal_id,
             cart_id: cart_id,
-            result: total
+            result: total[0]['result']
         });
     }
     else {
@@ -533,18 +560,23 @@ router.get('/pay/:cart_id', async function (req, res) {
     
 });
 
-router.get('/pay/:cart_id', async function (req, res) {
-    
+router.post('/pay/:cart_id', async function (req, res) {
     var date = new Date();
     var cart_id = req.params.cart_id;
+    date = date.getUTCFullYear() + '-' +
+        ('00' + (date.getUTCMonth() + 1)).slice(-2) + '-' +
+        ('00' + date.getUTCDate()).slice(-2) + ' ' +
+        ('00' + date.getUTCHours()).slice(-2) + ':' +
+        ('00' + date.getUTCMinutes()).slice(-2) + ':' +
+        ('00' + date.getUTCSeconds()).slice(-2);
+
     await update_date_of_pay(date, cart_id);
-    res.render('pay', {
-        id: personal_id
-    });
-});
+    res.redirect('/')
+}); 
 
 function hexToBase64(str) {
-    return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+    
+    return window.btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
 }
 
 
@@ -697,7 +729,7 @@ async function update_book_value(book_id, person_id, value) {
 }
 
 async function add_book_to_storage(book_name, year, quantity) {
-    var sql_text = `EXEC	[dbo].[AddBookToStorage]
+    var sql_text = `EXEC [dbo].[AddBookToStorage]
 		@book_name, 
 		@year,
 		@quantity`
@@ -747,7 +779,7 @@ where статус_корзины = 1 and код_покупателя = @person_
 }
 
 async function update_date_of_pay(date, cart_id) {
-    var sql_text = `Update from Счет_покупателя set [дата_оплаты] = @date where [код_корзины] = @cart_id`
+    var sql_text = `Update Счет_покупателя set [дата_оплаты] = @date where [код_корзины] = @cart_id`
 
     var connection = new sql.ConnectionPool({
         database: 'Last_db',
@@ -760,7 +792,7 @@ async function update_date_of_pay(date, cart_id) {
 
     var q_req = new sql.Request(connection);
     var arr_tasks = await q_req
-        .input("date", sql.Date, date)
+        .input("date", sql.DateTime, date)
         .input("cart_id", sql.Int, cart_id)
         .query(sql_text);
 }
@@ -815,9 +847,8 @@ async function add_order(full_name, email, phone, type, comments, person_id, pri
 
 
 async function delete_personal_book(book_id, person_id) {
-    var sql_text = `DELETE 
-from Корзина___Книга
-where код_книги = @book_id and код_корзины = (select код_корзины from Корзина_покупателя where код_покупателя = @person_id and статус = 0) `
+    
+    var sql_text = `DELETE from Корзина___Книга where код_книги = @book_id and код_корзины = (select код_корзины from Корзина_покупателя where код_покупателя = @person_id and статус_корзины = 0) `
 
     var connection = new sql.ConnectionPool({
         database: 'Last_db',
@@ -837,8 +868,8 @@ where код_книги = @book_id and код_корзины = (select код_к
 }
 
 async function update_cart_status(person_id) {
-    var sql_text = `pdate Корзина_покупателя
-set статус = 1
+    var sql_text = `update Корзина_покупателя
+set статус_корзины = 1
 where код_покупателя = @person_id`
 
     var connection = new sql.ConnectionPool({
@@ -863,7 +894,7 @@ async function get_all_user_book(id) {
     var sql_text = `select обложка cover, название book_name, количество_книг quantity, цена price, (количество_книг * цена) result, Книга.код_книги id
 from Корзина_покупателя join Корзина___Книга on Корзина_покупателя.код_корзины = Корзина___Книга.код_корзины
 join Книга on Книга.код_книги = Корзина___Книга.код_книги
-where статус = 0 and код_покупателя = @id`;
+where статус_корзины = 0 and код_покупателя = @id`;
     //добавить id
     var connection = new sql.ConnectionPool({
         database: 'Last_db',
@@ -886,7 +917,7 @@ async function get_result(id) {
     var sql_text = `select  sum(количество_книг * цена) result
 from Корзина_покупателя join Корзина___Книга on Корзина_покупателя.код_корзины = Корзина___Книга.код_корзины
 join Книга on Книга.код_книги = Корзина___Книга.код_книги
-where статус = 0 and код_покупателя = @id`;
+where статус_корзины = 0 and код_покупателя = @id`;
     //добавить id
     var connection = new sql.ConnectionPool({
         database: 'Last_db',
@@ -906,10 +937,10 @@ where статус = 0 and код_покупателя = @id`;
 }
 
 async function get_last_cart_of_user(person_id) {
-    var sql_text = `select код_корзины cart_id 
+    var sql_text = `select Корзина_покупателя.код_корзины cart_id 
 from Корзина_покупателя join Корзина___Книга on Корзина_покупателя.код_корзины = Корзина___Книга.код_корзины
 join Книга on Книга.код_книги = Корзина___Книга.код_книги
-where статус = 0 and код_покупателя = @person_id`;
+where статус_корзины = 0 and код_покупателя = @person_id`;
     //добавить id
     var connection = new sql.ConnectionPool({
         database: 'Last_db',
@@ -932,7 +963,7 @@ async function get_result_by_cart(person_id, cart_id) {
     var sql_text = `select  sum(количество_книг * цена) result
 from Корзина_покупателя join Корзина___Книга on Корзина_покупателя.код_корзины = Корзина___Книга.код_корзины
 join Книга on Книга.код_книги = Корзина___Книга.код_книги
-where код_корзины = @cart_id and код_покупателя = @person_id`;
+where Корзина_покупателя.код_корзины = @cart_id and код_покупателя = @person_id`;
     //добавить id
     var connection = new sql.ConnectionPool({
         database: 'Last_db',

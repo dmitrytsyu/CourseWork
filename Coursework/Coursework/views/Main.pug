@@ -1,9 +1,11 @@
 ﻿extends layout
 
 block content
+	
 	body
 	div(class='page')
 		div(class='menu-container')
+
 			div(class='menu')
 				div(class='date') 
 					a(href='/') Aug 14, 2019
@@ -42,11 +44,10 @@ block content
 				-for(var x = 0; x < books.length; x++)
 					div(class='book-grid')
 						div(class='book-grid-image')
-							img(src='')
-						
-						a(href='/book/'+ books[x]['id'] ) #{books[x]['book_name']}
+							img(id='image_book_'+ books[x]['id'])
+				
+						a(href='/book/'+ books[x]['id'])  #{books[x]['book_name']}
 						p #{books[x]['price']}
-						//form(action='/сart?bookId=' + books[x]['id'] + '&?increment=1' method='post' enctype='multipart/form-data')
 						button(class='button-link' onclick='add_book_to_cart_click(' + books[x]['id'] + ')') Добавить в корзину
 						
 
