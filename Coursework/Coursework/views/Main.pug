@@ -44,9 +44,10 @@ block content
 				-for(var x = 0; x < books.length; x++)
 					div(class='book-grid')
 						div(class='book-grid-image')
-							img(id='image_book_'+ books[x]['id'])
+							a(href='/book/'+ books[x]['id'] )
+								img(id='image_book_'+ books[x]['id'] )
 				
-						a(href='/book/'+ books[x]['id'])  #{books[x]['book_name']}
+						a(href='/book/'+ books[x]['id'] )  #{books[x]['book_name']}
 						p #{books[x]['price']}
 						button(class='button-link' onclick='add_book_to_cart_click(' + books[x]['id'] + ')') Добавить в корзину
 						

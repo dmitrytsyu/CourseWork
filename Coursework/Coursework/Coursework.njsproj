@@ -43,6 +43,9 @@
     <Compile Include="public\ajax.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="public\image.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="public\images.js">
       <SubType>Code</SubType>
     </Compile>

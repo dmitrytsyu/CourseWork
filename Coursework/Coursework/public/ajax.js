@@ -15,12 +15,12 @@ function update_date_of_pay(cart_id) {
 }
 
 function show_close_details(details_cart) {
-    var style = document.getElementById('details' + details_cart).style.display;
+    var style = document.getElementById('details_' + details_cart).style.display;
     if (style == 'none') {
-        document.getElementById('details' + details_cart).style.display = 'block';
+        document.getElementById('details_' + details_cart).style.display = 'block';
     }
     else {
-        document.getElementById('details' + details_cart).style.display = 'none';
+        document.getElementById('details_' + details_cart).style.display = 'none';
     }
 }
 

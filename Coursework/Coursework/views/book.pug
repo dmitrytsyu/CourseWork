@@ -5,7 +5,7 @@ html
 		link(rel='stylesheet', href='/stylesheets/main.css')
 		link(rel='stylesheet', href='/stylesheets/book.css')
 		<meta charset='UTF-8'>
-	
+		script(src='/image.js')
 		block content
 			body
 			div(class='page')
@@ -39,7 +39,8 @@ html
 					button Submit
 				div(class='content-grid-container')
 					div(class='content-sidebar-image')
-						div(class='image') Привет
+						div(class='image')
+							img(id='book_image')
 					div(class='content-grid')
 						h2 #{book[0]['name_book']}
 						div(class='content-grid-cell')

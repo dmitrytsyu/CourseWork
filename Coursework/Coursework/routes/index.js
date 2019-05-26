@@ -12,15 +12,7 @@ var personal_type = 1;
 router.get('/', async function (req, res) {
     var all_genres = await get_all_genres();
     var all_books = await get_all_books();
-    //var covers = [];
-    //for (var a = 0; a < all_books.length; a++) {
-    //    var originalbase64imagestr = all_books[a]['cover'];
-    //    //var image = new image;
-    //    //var originalbase64imagestr = hextobase64(originalbase64imagestr);
-    //    //covers.push(originalbase64imagestr)
-    //    // var decodedimage = new buffer(originalbase64imagestr, 'base64');
-        
-    //} 
+    
    
     res.render('main',  {
         genres: all_genres,
@@ -34,6 +26,7 @@ router.get('/take_books', async function (req, res) {
    
     var all_books = await get_all_books();
     var covers = {};
+    
     for (var a = 0; a < all_books.length; a++) {
         if (all_books[a]['cover'] != null) {
             var base64 = new Buffer(all_books[a]['cover'], 'binary').toString('base64')
@@ -42,16 +35,27 @@ router.get('/take_books', async function (req, res) {
         else {
             covers[all_books[a]['id']] = 'no_image'
         }
-    //    var originalbase64imagestr = all_books[a]['cover'];
-    //    //var image = new image;
-    //    //var originalbase64imagestr = hextobase64(originalbase64imagestr);
-    //    //covers.push(originalbase64imagestr)
-    //    // var decodedimage = new buffer(originalbase64imagestr, 'base64');
     }
     
     res.json(covers);
     
 });
+
+router.get('/take_book_cover/:bookId', async function (req, res) {
+    //var attributes = {};
+    var bookId = req.params.bookId;
+    var my_book = await get_book(bookId);
+    if (my_book[0]['cover'] != null) {
+        var base64 = new Buffer(my_book[0]['cover'], 'binary').toString('base64')
+    }
+    else {
+        var base64 = 'no_image'
+    }
+    //attributes['cover'] = base64;
+    res.json(base64);
+
+});
+
 router.post('/', async function (req, res) {
     personal_id = 1;
     var all_genres = await get_all_genres();
@@ -271,8 +275,6 @@ router.post('/cart/add_to_cart/:book_id', async function (req, res) {
     }
 });
 
-
-
 router.post('/cart/delete/:bookId', async function (req, res) {
     var bookId = req.params.bookId;
     
@@ -314,11 +316,6 @@ router.post('/cart/update_book_value/:book_id', async function (req, res) {
         }); 
     }
 });
-
-
-
-
-
 
 
 router.post('/cart/order', async function (req, res) {
@@ -464,8 +461,8 @@ router.post('/order/new', async function (req, res) {
                 var last_cart = await get_last_cart_of_user(personal_id);
                 await update_cart_status(personal_id);
                 await add_order(full_name, email, phone, int_type, comments, personal_id, price);
-                
-                res.render('/pay/' + last_cart[0]['cart_id']);
+
+                res.redirect('/pay/' + last_cart[0]['cart_id']);
             } else {
                 res.redirect('/');
             }
@@ -758,7 +755,7 @@ from Корзина_покупателя join Корзина___Книга on К�
 join Книга on Книга.код_книги = Корзина___Книга.код_книги 
 join Заказ_покупателя on Корзина_покупателя.код_корзины = Заказ_покупателя.код_корзины 
 join Счет_покупателя on Счет_покупателя.код_корзины = Корзина_покупателя.код_корзины 
-where статус_корзины = 1 and код_покупателя = @person_id`
+where статус_корзины = 1 and код_покупателя = @person_id order by id_cart desc`
 
     var connection = new sql.ConnectionPool({
         database: 'Last_db',

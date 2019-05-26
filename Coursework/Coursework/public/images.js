@@ -37,53 +37,22 @@ function get_information(callback) {
 }
 
 function myFunction(arr) {
-    
+    for (var key in arr) {
+        if (arr[key] != 'no_image') {
+            document.getElementById('image_book_' + key).src = 'data:image/jpeg;base64,' + arr[key];
+            document.getElementById('image_book_' + key).style.height = '190px';
+            document.getElementById('image_book_' + key).style.width = '190px';
+        }
 
-    alert(arr.length)
-    for (var i = 1; i < arr.length; i++) {
-        //alert('image_book_' + i)
-        //var _img = 
-        //alert(_img)
-        //var newimg = new Image;
-        //newimg.onload = function () {
-        //    _img.src = this.src;
-            //}
-        document.getElementById('image_book_' + i).src = 'data:image/jpeg;base64,' + arr[i];
-        document.getElementById('image_book_' + i).style.height = '200px';
-        document.getElementById('image_book_' + i).style.width = '200px';
+        else {
+            document.getElementById('image_book_' + key).src = '/images/no-image-icon.png';
+            document.getElementById('image_book_' + key).style.height = '190px';
+            document.getElementById('image_book_' + key).style.width = '190px';
+        }
     }
     
-    //var image = new Buffer(arr[1]['cover']);
-    //var file = hexToBase64(arr[1]['cover'].toString());
-    //alert(arr[1]['cover'].toString())
-   
+
     
-    
-   // //var getImageResult = addon.getlatestimage();
-   // //var b64encoded = btoa(String.fromCharCode.apply(null, getImageResult.imagebuffer));
-   // //var datajpg = "data:image/jpg;base64," + b64encoded;
-   // //document.getElementById("myimage").src = datajpg;
+
 }
-//function get_all_books() {
-
-//    var sql_text = `select Книга.название book_name, код_книги id, цена price, обложка cover 
-//					from Книга order by [количество_просмотров_книги] desc`;
-//    //var sql_text = `select * from Книга`
-//    var connection = new sql.ConnectionPool({
-//        database: 'Last_db',
-//        server: 'DESKTOP-KLFJQ83\\SQLEXPRESS',
-//        driver: 'msnodesqlv8',
-//        options: { trustedConnection: true }
-//    });
-
-//    await connection.connect();
-
-//    var q_req = new sql.Request(connection);
-//    var arr_tasks = await q_req.query(sql_text);
-
-//    return arr_tasks.recordset;
-//}
-
-
-
 document.addEventListener("DOMContentLoaded", ready);
