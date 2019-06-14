@@ -18,6 +18,13 @@
     width: 100%;
 }
 
+.content-grid-analytic-cell {
+    display: block;
+    height: 150px;
+    width: 100%;
+    align-items: center;
+}
+
 .content-grid {
     display: block;
     height: 200px;
@@ -49,6 +56,19 @@
 
 .basket-book {
     width: 50%;
+    display: inline-block;
+}
+.basket-poplular-book {
+    width: 40%;
+    display: inline-block;
+}
+
+.basket-avg_price {
+    width: 30%;
+    display: inline-block;
+}
+.basket-avg_result {
+    width: 30%;
     display: inline-block;
 }
 

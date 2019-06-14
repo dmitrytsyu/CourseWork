@@ -1,45 +1,14 @@
-﻿doctype html
-html
-	head
-		title=title
-		link(rel='stylesheet', href='/stylesheets/main.css')
-		link(rel='stylesheet', href='/stylesheets/cart.css')
-		script(src='/ajax.js')
-		<meta charset='UTF-8'>
-	body
-		block content
+﻿extends layout.pug
+
+block links
+	link(rel='stylesheet', href='/stylesheets/main.css')
+	link(rel='stylesheet', href='/stylesheets/cart.css')
+
+block scripts
+	script(src='/ajax.js')
 
 block content
 	body
-	div(class='page')
-		div(class='menu-container')
-			div(class='menu ')
-				div(class='date') 
-					a(href='/') Aug 14, 2019
-				div(class='cart')
-					a(href='/cart') Cart
-				div(class='orders')
-					a(href='/orders') Orders
-				if id == 1
-					div(class='signup')
-						a(href='/registration') SignUp
-					div(class='login') 
-						a(href='/authorization') LogIn
-				else
-					div(class='user-links')
-						div(class='signup') Welcome #{id}
-						form(action='/' method='post' class='logout')
-							input(type='hidden' name='button-submit' id='button-submit')
-							button(class='button-link') Logout
-		div(class='header-container')
-			div(class='header')
-				div(class='subscribe') Subscribe &#9662;
-				div(class='logo')
-					p Книжный магазин, который удивит
-				div(class='social')
-		form(class='search-form' action='/' method='post')
-			input(id='request' name='request' type='text')
-			button Submit
 		div(class='content-grid-container')
 			div(class='content-grid-basket')
 				each book in books
@@ -60,10 +29,11 @@ block content
 								input(type='text' class='result' name="result" id='result_' + book.id  min='1' 
 								value=book.result readonly='true')
 						div(class='basket-delete')
-							button( type='button'  onclick='delete_book_from_cart('+ book.id + ')') Удалить
-							
-			div(class='price-container')
-				div(class='price-cell') Сумма
-					p(id='total') #{result}
-					a(href='/order') Order
-				//-div(class='price-cell')
+							a(href= '/cart/delete/' + book.id) Удалить
+							//button( type='button'  onclick='delete_book_from_cart('+ book.id + ')') Удалить
+			if id != 1			
+				div(class='price-container')  
+					div(class='price-cell') 
+						p Итог: #{result}
+						a(href='/order' class='button-link') Заказать
+		

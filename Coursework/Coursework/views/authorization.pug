@@ -1,54 +1,24 @@
-﻿doctype html
-html
-	head
-		title=title
-		
+﻿extends layout.pug
+
+block links
 		link(rel='stylesheet', href='/stylesheets/author.css')
 		link(rel='stylesheet', href='/stylesheets/main.css')
 
-		<meta charset='UTF-8'>
+block content
 	body
-		block content
-			body
-			div(class='page')
-				div(class='menu-container')
-					div(class='menu')
-						div(class='date') 
-							a(href='/') Aug 14, 2019
-						div(class='cart')
-							a(href='/cart') Cart
-						div(class='orders')
-							a(href='/orders') Orders
-						if id == 1
-							div(class='signup')
-								a(href='/registration') SignUp
-							div(class='login') 
-								a(href='/authorization') LogIn
-						else
-							div(class='user-links')
-								div(class='signup') Welcome #{id}
-								form(action='/' method='post' class='logout')
-									input(type='hidden' name='button-submit' id='button-submit')
-									button(class='button-link') Logout
-				div(class='header-container')
-					div(class='header')
-						div(class='subscribe') Subscribe &#9662;
-						div(class='logo')
-							p Книжный магазин, который удивит
-						div(class='social')
-				div(class='speaker-form')
-					form(action='/authorization' method='post' enctype='multipart/form-data')
-						div(class='form-row')
-							label(for='first_name') First name
-							input(id='first_name' name='first_name' type='text')
-						div(class='form-row')
-							label(for='last_name') Last name
-							input(id='last_name' name='last_name' type='text')
-						div(class='form-row')
-							label(for='email') Email
-							input(id='email' name='email' type='email'  placeholder='joe@example.com')
-						div(class='form-row')
-							button Submit
+		div(class='speaker-form')
+			form(action='/authorization' method='post' enctype='multipart/form-data')
+				div(class='form-row')
+					label(for='first_name') Имя
+					input(id='first_name' name='first_name' type='text')
+				div(class='form-row')
+					label(for='last_name') Фамилия
+					input(id='last_name' name='last_name' type='text')
+				div(class='form-row')
+					label(for='email') Отчество
+					input(id='email' name='email' type='email'  placeholder='joe@example.com')
+				div(class='form-row')
+					button(class='button-link') Подтвердить
 
 
 

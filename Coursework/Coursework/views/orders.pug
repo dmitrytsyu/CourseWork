@@ -1,116 +1,94 @@
-﻿doctype html
-html
-	head
-		title=title
-		link(rel='stylesheet', href='/stylesheets/main.css')
-		link(rel='stylesheet', href='/stylesheets/orders.css')
-		<meta charset='UTF-8'>
-		script(src='/ajax.js')
-	body
-		block content
+﻿extends layout.pug
+
+block links
+	link(rel='stylesheet', href='/stylesheets/main.css')
+	link(rel='stylesheet', href='/stylesheets/orders.css')
+block scripts
+	script(src='/ajax.js')
+	
 
 block content
 	body
-	div(class='page')
-		div(class='menu-container')
-			div(class='menu ')
-				div(class='date') 
-					a(href='/') Aug 14, 2019
-				div(class='cart')
-					a(href='/cart') Cart
-				div(class='orders')
-					a(href='/orders') Orders
-				if id == 1
-					div(class='signup')
-						a(href='/registration') SignUp
-					div(class='login') 
-						a(href='/authorization') LogIn
+	
+			
+
+	div(class='content-grid-container')
+		div(class='content-grid-basket')
+			if (typeof orders[0] != 'undefined')
+				div(class='content-grid-analytic-cell')
+					div(class='basket-poplular-book')
+						div(class='basket-cell-top') Самая популярная книга	
+						div(class='basket-cell-bottom')
+							a(href='/book/' + book[0]['book_id'] class='my_href') #{book[0]['book_name']}
+					div(class='basket-avg_price') 
+						div(class='basket-cell-top') Средняя стоимость покупаемых книг
+						div(class='basket-cell-bottom') #{avg_price[0]['avg_price']}
+					div(class='basket-avg_result')
+						div(class='basket-cell-top') Средняя сумма чека
+						div(class='basket-cell-bottom') #{avg_result[0]['avg_result']}
+			-var order_id = (typeof orders[0] != 'undefined') ? orders[0]['id_cart'] : 0
+			-for(var i = 0; i < orders.length; i++)
+				if (i == (orders.length - 1))
+					div(class='content-grid-basket-cell')
+						div(class='detail-cell')
+							div(class='details' id='details_'+ orders[i-1]['id_cart'] style='display: none' )
+								p Дата заказа #{orders[i]['date_of_order']} #{orders[i-1]['id_cart']}
+								p Адрес #{orders[i]['adress']}
+								if orders[i]['price_of_delivery'] > 0
+									p Цена доставки #{orders[i]['price_of_delivery']}
+							button(class='button-relative' onclick='show_close_details('+ orders[i-1]['id_cart'] +')' ) Details
+						if (orders[i]['date_of_payment'] == null)
+							div(class='payment')
+								a(href='/pay/'+ orders[i-1]['id_cart'] ) Pay
+						else
+							div(class='payment') 
+								p Дата оплаты: #{orders[i]['date_of_payment']}
+							div(class='result')
+								p #{orders[i]['result']}
+				else if order_id == orders[i]['id_cart'] 
+					div(class='content-grid-basket-cell')
+						div(class='basket-image')
+						div(class='basket-book')
+							div(class='basket-cell-top')
+								a(href='/book/' + orders[i]['book_id'] class='my_href') #{orders[i]['book_name']}
+							div(class='basket-cell-bottom') #{orders[i]['book_price']}
+						div(class='basket-quantity')
+							div(class='basket-cell-top') Количество
+							div(class='basket-cell-bottom') #{orders[i]['quantity']} #{orders.length}
+						div(class='basket-cost')
+							div(class='basket-cell-top') Итог
+							div(class='basket-cell-bottom') #{orders[i]['quantity'] * orders[i]['book_price']}
 				else
-					div(class='user-links')
-						div(class='signup') Welcome #{id}
-						form(action='/' method='post' class='logout')
-							input(type='hidden' name='button-submit' id='button-submit')
-							button(class='button-link') Logout
-		div(class='header-container')
-			div(class='header')
-				div(class='subscribe') Subscribe &#9662;
-				div(class='logo')
-					p Книжный магазин, который удивит
-				div(class='social')
-		form(class='search-form' action='/' method='post')
-			input(id='request' name='request' type='text')
-			button Submit
-		div(class='content-grid-container')
-			div(class='content-grid-basket')
-				-var order_id = orders[0]['id_cart']
-				-for(var i = 0; i < orders.length; i++)
-					if (i == (orders.length - 1))
-						div(class='content-grid-basket-cell')
-							div(class='detail-cell')
-								div(class='details' id='details_'+ orders[i-1]['id_cart'] style='display: none' )
-									p Дата заказа #{orders[i]['date_of_order']} #{orders[i-1]['id_cart']}
-									p Полное имя #{orders[i]['full_name']}
-									p Адрес #{orders[i]['adress']}
-									p Почта #{orders[i]['email']}
-									p Телефон #{orders[i]['phone']}
-									if orders[i]['price_of_delivery'] > 0
-										p Цена доставки #{orders[i]['price_of_delivery']}
-								button(class='button-relative' onclick='show_close_details('+ orders[i-1]['id_cart'] +')' ) Details
-							if (orders[i]['date_of_payment'] == null)
-								div(class='payment')
-									a(href='/pay/'+ orders[i-1]['id_cart'] ) Pay
-							else
-								div(class='payment') 
-									p Дата оплаты: #{orders[i]['date_of_payment']}
-								div(class='result')
-									p #{orders[i]['result']}
-					else if order_id == orders[i]['id_cart'] 
-						div(class='content-grid-basket-cell')
-							div(class='basket-image')
-							div(class='basket-book')
-								div(class='basket-cell-top')
-									a(href='/book/' + orders[i]['book_id'] class='my_href') #{orders[i]['book_name']}
-								div(class='basket-cell-bottom') #{orders[i]['book_price']}
-							div(class='basket-quantity')
-								div(class='basket-cell-top') Количество
-								div(class='basket-cell-bottom') #{orders[i]['quantity']} #{orders.length}
-							div(class='basket-cost')
-								div(class='basket-cell-top') Итог
-								div(class='basket-cell-bottom') #{orders[i]['quantity'] * orders[i]['book_price']}
-					else
-						- var order_id = orders[i]['id_cart']
-						div(class='content-grid-basket-cell')
-							div(class='detail-cell')
-								div(class='details' id='details_'+ orders[i-1]['id_cart'] style='display: none')
-									p Дата заказа #{orders[i]['date_of_order']}
-									p Полное имя #{orders[i]['full_name']} #{orders[i-1]['id_cart']}
-									p Адрес #{orders[i]['adress']}
-									p Почта #{orders[i]['email']}
-									p Телефон #{orders[i]['phone']}
-									if orders[i]['price_of_delivery'] > 0
-										p Цена доставки #{orders[i]['price_of_delivery']}
-									//button(onclick='close_details()' class='details')
-								button(class='button-relative' onclick='show_close_details('+ orders[i-1]['id_cart'] +')' ) Details
-							if (orders[i]['date_of_payment'] == null)
-								div(class='payment')
-									a(href='/pay/'+ orders[i-1]['id_cart'] ) Pay
-							else
-								div(class='payment') 
-									p Дата оплаты: #{orders[i]['date_of_payment']}
-								div(class='result')
-									p #{orders[i]['result']}
-						div(class='content-grid-basket-cell')
-							div(class='basket-image')
-							div(class='basket-book')
-								div(class='basket-cell-top')
-									a(href='/book/' + orders[i]['book_id'] class='my_href') #{orders[i]['book_name']}
-								div(class='basket-cell-bottom') #{orders[i]['book_price']}
-							div(class='basket-quantity')
-								div(class='basket-cell-top') Количество
-								div(class='basket-cell-bottom') #{orders[i]['quantity']}
-							div(class='basket-cost')
-								div(class='basket-cell-top') Итог
-								div(class='basket-cell-bottom') #{orders[i]['quantity'] * orders[i]['book_price']}
+					- var order_id = orders[i]['id_cart']
+					div(class='content-grid-basket-cell')
+						div(class='detail-cell')
+							div(class='details' id='details_'+ orders[i-1]['id_cart'] style='display: none')
+								p Дата заказа #{orders[i]['date_of_order']}
+								p Адрес #{orders[i]['adress']}
+								if orders[i]['price_of_delivery'] > 0
+									p Цена доставки #{orders[i]['price_of_delivery']}
+									
+							button(class='button-relative' onclick='show_close_details('+ orders[i-1]['id_cart'] +')' ) Детали
+						if (orders[i]['date_of_payment'] == null)
+							div(class='payment')
+								a(href='/pay/'+ orders[i-1]['id_cart'] ) Оплатить
+						else
+							div(class='payment') 
+								p Дата оплаты: #{orders[i]['date_of_payment']}
+							div(class='result')
+								p #{orders[i]['result']}
+					div(class='content-grid-basket-cell')
+						div(class='basket-image')
+						div(class='basket-book')
+							div(class='basket-cell-top')
+								a(href='/book/' + orders[i]['book_id'] class='my_href') #{orders[i]['book_name']}
+							div(class='basket-cell-bottom') #{orders[i]['book_price']}
+						div(class='basket-quantity')
+							div(class='basket-cell-top') Количество
+							div(class='basket-cell-bottom') #{orders[i]['quantity']}
+						div(class='basket-cost')
+							div(class='basket-cell-top') Итог
+							div(class='basket-cell-bottom') #{orders[i]['quantity'] * orders[i]['book_price']}
 						
 					
 						

@@ -2,9 +2,41 @@
 html
 	head
 		title=title
-		link(rel='stylesheet', href='/stylesheets/main.css')
+		block links 
+		
 		<meta charset='UTF-8'>
-		script(src='/ajax.js') 
-		script(src='/images.js') 
+		block scripts
+			
 	body
+	div(class='page')
+		div(class='menu-container')
+			div(class='menu')
+				div(class='date') 
+					a(href='/') Главная
+				div(class='cart')
+					a(href='/cart') Корзина
+				div(class='orders')
+					a(href='/orders') Заказы
+				if id == 1
+					div(class='signup')
+						a(href='/registration') Зарегистрироваться
+					div(class='login') 
+						a(href='/authorization') Войти
+				else
+					div(class='user-links')
+						div(class='signup') Добро пожаловать, #{name}
+						form(action='/' method='post' class='logout')
+							input(type='hidden' name='button-submit' id='button-submit')
+							button(class='button-link') Выйти
+			
+		div(class='header-container')
+			div(class='header')
+				div(class='subscribe')  
+					a(href='https://vk.com/dmitrytsyu') Подписаться
+				div(class='logo')
+					p Книжный магазин, который удивит
+				div(class='social')
+		form(class='search-form' action='/my_request' method='post' enctype='multipart/form-data') 
+			input(id='request' name='request' type='text')
+			button Submit
 		block content

@@ -1,99 +1,47 @@
-﻿doctype html
-html
-	head
-		title=title
-		link(rel='stylesheet', href='/stylesheets/main.css')
-		link(rel='stylesheet', href='/stylesheets/author.css')
-		<meta charset='UTF-8'>
+﻿extends layout.pug
+block links
+	link(rel='stylesheet', href='/stylesheets/main.css')
+	link(rel='stylesheet', href='/stylesheets/author.css')
+block scripts
+	script(src='/ajax.js')
 	
-		block content
-			body
-			div(class='page')
-				div(class='menu-container')
-					div(class='menu')
-						div(class='date') 
-							a(href='/') Aug 14, 2019
-						div(class='cart')
-							a(href='/cart') Cart
-						div(class='orders')
-							a(href='/orders') Orders
-						if id == 1
-							div(class='signup')
-								a(href='/registration') SignUp
-							div(class='login') 
-								a(href='/authorization') LogIn
-						else
-							div(class='user-links')
-								div(class='signup') Welcome #{id}
-								form(action='/' method='post' class='logout')
-									input(type='hidden' name='button-submit' id='button-submit')
-									button(class='button-link') Logout
-				div(class='header-container')
-					div(class='header')
-						div(class='subscribe') Subscribe &#9662;
-						div(class='logo')
-							p Книжный магазин, который удивит
-						div(class='social')
-				form(class='search-form' action='/' method='post')
-					input(id='request' name='request' type='text')
-					button Submit
-				div(class='speaker-form')
-					form(action='/registration' method='post' enctype='multipart/form-data')
-							div(class='form-row')
-								label(for='first_name') First Name
-								input(id='first_name' name='first_name' type='text')
-							div(class='form-row')
-								label(for='last_name') Last Name
-								input(id='last_name' name='last_name' type='text')
-							div(class='form-row')
-								label(for='patronymic') patronymic
-								input(id='patronymic' name='patronymic' type='text')
-							div(class='form-row')
-								label(for='email') Email
-								input(id='email' name='email' type='email'  placeholder='joe@example.com')
-							div(class='form-row')
-								label(for='phone') Phone
-								input(id='phone' name='phone' type='tel')
-							div(class='form-row')
-								label(for='date') Date of birth
-								input(id='date' name='date' type='date')
-							div(class='form-row')
-								label(for='type') Type
-								select(id='type' name='type' onchange="display_position(this);" )
-									option(value='customer' id='customer' selected) Customer
-									option(value='vendor' id='vendor') Vendor
-									option(value='courier' id='courier') Courier
-					
-							script.
+block content
+	body
+		div(class='speaker-form')
+			form(action='/registration' method='post' enctype='multipart/form-data')
+					div(class='form-row')
+						label(for='first_name') Имя
+						input(id='first_name' name='first_name' type='text')
+					div(class='form-row')
+						label(for='last_name') Фамилия
+						input(id='last_name' name='last_name' type='text')
+					div(class='form-row')
+						label(for='patronymic') Отчество
+						input(id='patronymic' name='patronymic' type='text')
+					div(class='form-row')
+						label(for='email') Почта
+						input(id='email' name='email' type='email'  placeholder='joe@example.com')
+					div(class='form-row')
+						label(for='phone') Телефон
+						input(id='phone' name='phone' type='tel')
+					div(class='form-row')
+						label(for='date') Дата рождения
+						input(id='date' name='date' type='date')
+					div(class='form-row')
+						label(for='type') Тип
+						select(id='type' name='type' onchange='display_position(this)')
+							option(value='customer' id='customer' selected) Покупатель
+							option(value='vendor' id='vendor') Продавец
+							option(value='courier' id='courier') Курьер
+					div(class='form-row' id='position' style='display: none' ) 
+						label(for='input-position') Позиция
+						select(name='position')
+							each position in positions
+								option(value=position id=position) #{position.name_of_position}
+					div(class='form-row')
+								button Подтвердить
 
-								function display_block(){
-									document.getElementById('position').style.display = 'block';}
-
-								function no_display_block(){
-									document.getElementById('position').style.display = 'none';}
-
-								var selected_state;
-								
-								function display_position(obj){
-									var selected_state = obj.value;
-									
-									if(selected_state == 'customer') no_display_block()
-									else if(selected_state == 'courier') no_display_block()
-									else if(selected_state == 'vendor') display_block()
-								}
-
-							
-								
-				
-				
-							div(class='form-row' id='position' style='display: none' ) 
-								label(for='input-position') Position
-								select(name='position')
-									each position in positions
-										option(value=position id=position) #{position.name_of_position}
-								
-							div(class='form-row')
-								button Submit
+						
 
 
 

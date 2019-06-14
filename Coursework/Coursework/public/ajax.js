@@ -105,6 +105,7 @@ function post_add_book(bookId, increment, callback) {
         }
 
     };
+
     xhr.send(JSON.stringify({  // convert object to string and send it to the server
         increment: increment
     }));
@@ -147,7 +148,7 @@ function post_delete_book(bookId, callback) {
     
     var xhr = new XMLHttpRequest(); // query object
     var url = "/cart/delete/" + bookId;
-    xhr.open("POST", url, true); // starting the request
+    xhr.open("get", url, true); // starting the request
     xhr.send();
     xhr.setRequestHeader("content-type", "application/json");
     
@@ -175,6 +176,7 @@ function post_update_cart_status(callback) {
     var xhr = new XMLHttpRequest(); // query object
     var url = "/cart/order"; // target action
     xhr.open("POST", url, true); // starting the request
+   
     xhr.setRequestHeader("content-type", "application/json");
 
 
@@ -199,12 +201,11 @@ function post_update_cart_status(callback) {
 
 
 function post_update_date_of_pay(cart_id, callback) {
-    alert(cart_id)
     var xhr = new XMLHttpRequest(); // query object
-    var url = "/pay/" + cart_id; // target action
-    xhr.open("POST", url, true); // starting the request
+    var url = "/pay_pay/" + cart_id; // target action
+    xhr.open("get", url, true); // starting the request
     xhr.setRequestHeader("content-type", "application/json");
-    xhr.send();
+    xhr.send(null);
     
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
@@ -223,6 +224,10 @@ function post_update_date_of_pay(cart_id, callback) {
             }
         }
     };
+}
+
+function go_to_genre(genre_id) {
+    post_get_books_by_genre(genre_id);
 }
 
 function post_join_to_cart(cart_id, callback) {
@@ -249,5 +254,58 @@ function post_join_to_cart(cart_id, callback) {
             }
         }
     };
+}
+
+function post_get_books_by_genre(genre_id, callback) {
+    var xhr = new XMLHttpRequest(); 
+    var url = "/take_all_book_from_genre/" + genre_id;
+    xhr.open("get", url);
+    xhr.send()
+    
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            var obj = xhr.responseText;
+            if (obj == null || obj == "") {
+                callback(null);
+            }
+            else {
+                try {
+                    var result = eval("(" + obj + ")");
+                    if (callback) {
+                        callback(result);
+                    }
+                    
+                }
+                catch (EX) {
+                    if (callback) {
+                        callback(null);
+                    }
+                }
+            }
+        }
+    };
+
+  
+
+} 
+
+
+
+
+function display_position(obj) {
+    var selected_state = obj.value;
+    alert(selected_state);
+    if (selected_state == 'customer') {
+        document.getElementById('position').style.display = 'none';
+    }
+
+    else if (selected_state == 'courier') {
+        document.getElementById('position').style.display = 'none';
+    }
+    else if (selected_state == 'vendor') {
+        document.getElementById('position').style.display = 'block';
+    }
+    
 }
 

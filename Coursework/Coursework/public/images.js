@@ -1,18 +1,8 @@
 ﻿
 
 function ready() {
-    //var images = get_all_books();
-    
     var infoemation = get_information()
-    //alert(infoemation)
-    //var _img = document.getElementById('image_book_1');
-    //var newImg = new Image;
-    //newImg.onload = function () {
-    //    _img.src = this.src;
-    //}
-    //newImg.src = 'data:image/jpeg;base64,' + hexToBase64(books[0]['cover']);
-    
-} //'http://www.hyperlinkcode.com/images/sample-image.jpg'
+}
 
 function hexToBase64(str) {
     return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
@@ -29,6 +19,7 @@ function get_information(callback) {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var myArr = JSON.parse(this.responseText);
+            
             myFunction(myArr);
         }
     };
@@ -38,16 +29,24 @@ function get_information(callback) {
 
 function myFunction(arr) {
     for (var key in arr) {
-        if (arr[key] != 'no_image') {
-            document.getElementById('image_book_' + key).src = 'data:image/jpeg;base64,' + arr[key];
-            document.getElementById('image_book_' + key).style.height = '190px';
-            document.getElementById('image_book_' + key).style.width = '190px';
+        
+        if (arr[key] != 'no_image')
+        {
+            if (document.getElementById('image_book_' + key) != null) {
+                document.getElementById('image_book_' + key).src = 'data:image/jpeg;base64,' + arr[key];
+                document.getElementById('image_book_' + key).style.height = '190px';
+                document.getElementById('image_book_' + key).style.width = '190px';
+            }
+            
         }
 
         else {
-            document.getElementById('image_book_' + key).src = '/images/no-image-icon.png';
-            document.getElementById('image_book_' + key).style.height = '190px';
-            document.getElementById('image_book_' + key).style.width = '190px';
+            if (document.getElementById('image_book_' + key) != null) {
+                document.getElementById('image_book_' + key).src = '/images/no-image-icon.png';
+                document.getElementById('image_book_' + key).style.height = '190px';
+                document.getElementById('image_book_' + key).style.width = '190px';
+            }
+           
         }
     }
     

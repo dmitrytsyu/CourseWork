@@ -85,14 +85,16 @@
 
    
 }
-.price-cell {
-    display: block;
-    
+.price-cell,
+.price-cell p{
+    display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #D6D9DC;
+
     position: fixed;
     top: 450px;
     right: 50px;
     z-index: 1000;
 }
+
+
